@@ -75,10 +75,11 @@ export async function checkAuthentication(req, res, next) {
   );
 
   if (!validated) {
-    throw new ExpressError("Token not valid", 401);
+    req.session!.token = undefined;
   }
 
   next();
+
 }
 
 export async function refreshTokens(req, res, next) {
@@ -106,8 +107,6 @@ export async function refreshTokens(req, res, next) {
   req.session.refreshToken = response.refresh_token;
   req.session.cookie.expires = new Date(req.session.expiresAt);
   req.session.cookie.maxAge = response.expires_in * 1000;
-
-  console.log(response);
 
   next();
 }

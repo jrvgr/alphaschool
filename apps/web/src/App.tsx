@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Schedule } from "./components/Schedule";
+import { startOfWeek, endOfWeek, addHours }from 'date-fns'
+
 export const API_URL: string = import.meta.env.VITE_API_ENDPOINT;
 
-const today = new Date();
-const currentDayOfWeek = today.getDay();
-const daysToAdd = currentDayOfWeek === 0 ? 1 : 8 - currentDayOfWeek; 
-
-const sunday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysToAdd);
-const monday = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() - 6);
+const currentDate = new Date()
+const monday = addHours(startOfWeek(currentDate, { weekStartsOn: 1 }), 24)
+const sunday = endOfWeek(currentDate, { weekStartsOn: 1 })
 
 function App() {
   const [from, setFrom] = useState(monday)

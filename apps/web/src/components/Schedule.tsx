@@ -53,6 +53,7 @@ export function Schedule({ from, to, sort }: { from: Date; to: Date; sort: "asc"
       const startTime = new Date(item.startTime);
       return (<div key={item.id}>
         <h1>{item.title}</h1>
+        <p>{item.location}</p>
         <p>{item.description}</p>
         <p>{startTime.toDateString()} - {startTime.getHours()}:{startTime.getMinutes()}</p>
       </div>)

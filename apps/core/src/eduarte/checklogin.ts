@@ -8,11 +8,5 @@ export async function validateToken(token, url) {
     },
   });
 
-  if (!response.ok) {
-    if (response.status === 401) {
-      throw new ExpressError("unauthorized", response.status);
-    }
-  }
-
   return response.status === 204;
 }
