@@ -36,7 +36,16 @@ declare module "express-session" {
 }
 
 let redisClient = createClient();
-redisClient.connect().catch(console.error);
+
+redisClient.connect();
+
+redisClient.on('error', function (err) {
+  console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+  console.log('Connected to redis successfully');
+});
+
 
 let redisStore = new RedisStore({
   client: redisClient,

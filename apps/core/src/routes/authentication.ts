@@ -17,7 +17,7 @@ router.post("/login", async (req, res, next) => {
   const parsedBody = bodySchema.safeParse(req.body);
   if (!parsedBody.success) {
     console.log(parsedBody.error);
-    throw new ExpressError("No valid url provided", 400);
+    throw new ExpressError("No valid url provided, make sure you include the protocol", 400);
   }
 
   const code = new URL(req.body.url).searchParams.get("code");

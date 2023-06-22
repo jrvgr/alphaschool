@@ -3,6 +3,8 @@
 dist/
 .env
 
+**/dist/
+
 # dependencies
 node_modules
 .pnp
