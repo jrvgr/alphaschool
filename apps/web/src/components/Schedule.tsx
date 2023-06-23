@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 import { intlFormat, isSameDay } from "date-fns";
+import "./Schedule.css"
 
 export function Schedule({ from, to, sort }: { from: Date; to: Date; sort: "asc" | "desc" }) {
   const navigate = useNavigate();
@@ -84,13 +85,14 @@ export function Schedule({ from, to, sort }: { from: Date; to: Date; sort: "asc"
               const startTimeString = intlFormat(new Date(item.startTime), timeOptions);
               const endTimeString = intlFormat(new Date(item.endTime), timeOptions);
               return (
-                <div id={item.id}>
-                  <h3>{item.title}</h3>
-                  <p>{item.location}</p>
-                  <p>{startTimeString} - {endTimeString}</p>
-                  <p>{item.description}</p>
-                  <h4>Docenten:</h4>
-                  {item.teachers.map((teacher: any) => <span>{`${teacher.firstName} ${teacher.lastName}`} </span>)}
+                <div id={item.id} className="schedule-item">
+                  <div className="heading">
+                    <h3>{item.title}</h3>                  <h3>{startTimeString} - {endTimeString}</h3>
+                  </div>
+                  <div className="badges">
+                    <span className="location badge">{item.location}</span>
+                    {item.teachers.map((teacher: any) => <span className="badge teacher">{`${teacher.firstName} ${teacher.lastName}`} </span>)}
+                  </div>
                 </div>
               )
             })}
